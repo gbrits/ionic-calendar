@@ -4,11 +4,11 @@
 
 ## Usage
 
-- npm install ionic-calendar --save (in ionic project folder)
+- npm install ionic3-calendar-en --save (in ionic project folder)
 - in app.module.ts
 
 ``` javascript
-import { CalendarModule } from 'ionic-calendar';
+import { CalendarModule } from 'ionic3-calendar-en';
 
   @NgModule({
     ...

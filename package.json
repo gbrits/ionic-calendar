@@ -1,5 +1,5 @@
 {
-  "name": "ionic-calendar",
+  "name": "ionic3-calendar-en",
   "version": "1.0.0",
   "description": "A calendar component for the Ionic hybrid mobile development platform",
   "main": "index.js",
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/gbrits/ionic-calendar.git"
   },
-  "author": "gbrits",
+  "author": "gbrits_0",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gbrits/ionic-calendar/issues"
