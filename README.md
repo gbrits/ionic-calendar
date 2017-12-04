@@ -1,14 +1,14 @@
-# ionic3-calendar
+# ionic-calendar
 
-![image](https://github.com/laker007/ionic3-calendar/blob/master/calendar.png?raw=true)"
+![image](https://raw.githubusercontent.com/gbrits/ionic-calendar/master/calendar.png?raw=true)
 
-## Using
+## Usage
 
-- npm install ionic3-calendar --save (in ionic project folder)
+- npm install ionic-calendar --save (in ionic project folder)
 - in app.module.ts
 
 ``` javascript
-import { CalendarModule } from 'ionic3-calendar';
+import { CalendarModule } from 'ionic-calendar';
 
   @NgModule({
     ...
@@ -23,38 +23,33 @@ import { CalendarModule } from 'ionic3-calendar';
 
 - Push component to anywhere you want to display it
 
-  `<ion-calendar #calendar></ion-calendar>`
+``` javascript
+<ion-calendar #calendar></ion-calendar>
+```
 
 - Go Today
 
-  `<button ion-button clear (click)="calendar.today()">Today</button>`
+``` javascript
+<button ion-button clear (click)="calendar.today()">Today</button>
+```
 
 - Click The Day And Get The Day
 
-  `<ion-calendar #calendar (onDaySelect)="onDaySelect($event)"></ion-calendar>`
+``` javascript
+<ion-calendar #calendar (onDaySelect)="onDaySelect($event)"></ion-calendar>
+```
 
 - In The End
-
   Restart Ionic Serve
 
 ## Update
+
 - 5th December 2017
 
-  Added English comments to code
-  Added English month names instead of numerals on FE
-  Minor color adjustments for legibility
+  * Added English comments to code
+  * Added English month names instead of numerals on FE
+  * Minor color adjustments for legibility
 
-- 31st July 2017
+## Credits
 
-  Update README FILE
-
-- 29th July 2017:
-
-  Fix Bug:
-  The Right Way To Get The Day:
-
-  `<ion-calendar #calendar (onDaySelect)="onDaySelect($event)"></ion-calendar>`
-
-  Sorry for my mistake.
-
-- 28th July 2017:   Thanks For Smartisan Designer-[Here is the link](https://dribbble.com/smartisan_design)
+- Original by @laker007 at https://github.com/laker007/ionic3-calendar
