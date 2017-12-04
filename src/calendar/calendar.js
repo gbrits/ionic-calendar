@@ -10,13 +10,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from "lodash";
-var Calendar = (function () {
+var Calendar = /** @class */ (function () {
     function Calendar() {
         this.onDaySelect = new EventEmitter();
-        this.dateArray = []; // 本月展示的所有天的数组
-        this.weekArray = []; // 保存日历每行的数组
-        this.lastSelect = 0; // 记录上次点击的位置
-        // weekHead: string[] = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+        this.dateArray = []; // Array for all the days of the month
+        this.weekArray = []; // Array for each row of the calendar
+        this.lastSelect = 0; // Record the last clicked location
         this.weekHead = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
         this.currentYear = moment().year();
         this.currentMonth = moment().month();
@@ -26,12 +25,12 @@ var Calendar = (function () {
     Calendar.prototype.ngOnInit = function () {
         this.today();
     };
-    // 跳转至今天
+    // Jump to today
     Calendar.prototype.today = function () {
         this.displayYear = this.currentYear;
         this.displayMonth = this.currentMonth;
         this.createMonth(this.currentYear, this.currentMonth);
-        // 将今天标记为选择状态
+        // Mark today as a selection
         var todayIndex = _.findIndex(this.dateArray, {
             year: this.currentYear,
             month: this.currentMonth,
@@ -43,25 +42,29 @@ var Calendar = (function () {
         this.onDaySelect.emit(this.dateArray[todayIndex]);
     };
     Calendar.prototype.createMonth = function (year, month) {
-        this.dateArray = []; // 清除上个月的数据
-        this.weekArray = []; // 清除数据
-        var firstDay; //当前选择月份的 1 号星期几,决定了上个月取出几天出来。星期日不用显示上个月，星期一显示上个月一天，星期二显示上个月两天
-        var preMonthDays; // 上个月的天数
-        var monthDays; // 当月的天数
+        this.dateArray = []; // Clear last month's data
+        this.weekArray = []; // Clear week data
+        var firstDay;
+        // The day of the week on the first day of the current month of
+        // selection determines how many days to take out last month. Sunday
+        // does not show last month, Monday shows the previous month, Tuesday
+        // shows the last two days
+        var preMonthDays; // The number of days for the previous month
+        var monthDays; // The number of days for the month
         var weekDays = [];
         firstDay = moment({ year: year, month: month, date: 1 }).day();
-        // 上个月天数
+        // The number of days last month
         if (month === 0) {
             preMonthDays = moment({ year: year - 1, month: 11 }).daysInMonth();
         }
         else {
             preMonthDays = moment({ year: year, month: month - 1 }).daysInMonth();
         }
-        // 本月天数
+        // The number of days this month
         monthDays = moment({ year: year, month: month }).daysInMonth();
-        // 将上个月的最后几天添加入数组
+        // Add the last few days of the previous month to the array
         if (firstDay !== 7) {
-            var lastMonthStart = preMonthDays - firstDay + 1; // 从上个月几号开始
+            var lastMonthStart = preMonthDays - firstDay + 1; // From the last few months start
             for (var i = 0; i < firstDay; i++) {
                 if (month === 0) {
                     this.dateArray.push({
@@ -85,7 +88,7 @@ var Calendar = (function () {
                 }
             }
         }
-        // 将本月天数添加到数组中
+        // Add the numeral for this month to the array
         for (var i = 0; i < monthDays; i++) {
             this.dateArray.push({
                 year: year,
@@ -105,7 +108,7 @@ var Calendar = (function () {
             });
             this.dateArray[todayIndex].isToday = true;
         }
-        // 将下个月天数添加到数组中，有些月份显示 6 周，有些月份显示 5 周
+        // Add the number of days next month to the array, with some months showing 6 weeks and some months showing 5 weeks
         if (this.dateArray.length % 7 !== 0) {
             var nextMonthAdd = 7 - this.dateArray.length % 7;
             for (var i = 0; i < nextMonthAdd; i++) {
@@ -131,8 +134,8 @@ var Calendar = (function () {
                 }
             }
         }
-        // 至此所有日期数据都被添加入 dateArray 数组中
-        // 将日期数据按照每 7 天插入新的数组中
+        // All date data is now added to the dateArray array
+        // Insert the date data into the new array every seven days
         for (var i = 0; i < this.dateArray.length / 7; i++) {
             for (var j = 0; j < 7; j++) {
                 weekDays.push(this.dateArray[i * 7 + j]);
@@ -142,7 +145,7 @@ var Calendar = (function () {
         }
     };
     Calendar.prototype.back = function () {
-        // 处理跨年的问题
+        // Decrementing the year if necessary
         if (this.displayMonth === 0) {
             this.displayYear--;
             this.displayMonth = 11;
@@ -153,7 +156,7 @@ var Calendar = (function () {
         this.createMonth(this.displayYear, this.displayMonth);
     };
     Calendar.prototype.forward = function () {
-        // 处理跨年的问题
+        // Incrementing the year if necessary
         if (this.displayMonth === 11) {
             this.displayYear++;
             this.displayMonth = 0;
@@ -163,27 +166,27 @@ var Calendar = (function () {
         }
         this.createMonth(this.displayYear, this.displayMonth);
     };
-    // 选择某日期，点击事件
+    // Select a day, click event
     Calendar.prototype.daySelect = function (day, i, j) {
-        // 首先将上次点击的状态清除
+        // First clear the last click status
         this.dateArray[this.lastSelect].isSelect = false;
-        // 保存本次点击的项
+        // Store this clicked status
         this.lastSelect = i * 7 + j;
         this.dateArray[i * 7 + j].isSelect = true;
         this.onDaySelect.emit(day);
     };
+    __decorate([
+        Output(),
+        __metadata("design:type", Object)
+    ], Calendar.prototype, "onDaySelect", void 0);
+    Calendar = __decorate([
+        Component({
+            selector: 'ion-calendar',
+            template: "\n    <ion-grid>\n        <ion-row justify-content-center>\n            <ion-col col-auto (click)=\"back()\">\n                <ion-icon ios=\"ios-arrow-back\" md=\"md-arrow-back\"></ion-icon>\n            </ion-col>\n            <ion-col col-auto>\n                <div>{{displayYear}} - {{displayMonth + 1 | monthName}}</div>\n            </ion-col>\n            <ion-col col-auto (click)=\"forward()\">\n                <ion-icon ios=\"ios-arrow-forward\" md=\"md-arrow-forward\"></ion-icon>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col class=\"center calendar-header-col\" *ngFor=\"let head of weekHead\">{{head}}</ion-col>\n        </ion-row>\n\n        <ion-row class=\"calendar-row\" *ngFor=\"let week of weekArray;let i = index\">\n            <ion-col class=\"center calendar-col\" (click)=\"daySelect(day,i,j)\"\n            *ngFor=\"let day of week;let j = index\"\n            [ngClass]=\"[day.isThisMonth?'this-month':'not-this-month',day.isToday?'today':'',day.isSelect?'select':'']\">\n                {{day.date}}\n            </ion-col>\n        </ion-row>\n\n    </ion-grid>\n"
+        }),
+        __metadata("design:paramtypes", [])
+    ], Calendar);
     return Calendar;
 }());
-__decorate([
-    Output(),
-    __metadata("design:type", Object)
-], Calendar.prototype, "onDaySelect", void 0);
-Calendar = __decorate([
-    Component({
-        selector: 'ion-calendar',
-        template: "\n    <ion-grid>\n        <ion-row justify-content-center>\n            <ion-col col-auto (click)=\"back()\">\n                <ion-icon ios=\"ios-arrow-back\" md=\"md-arrow-back\"></ion-icon>\n            </ion-col>\n            <ion-col col-auto>\n                <div>{{displayYear}} \u5E74 {{displayMonth + 1}} \u6708</div>\n            </ion-col>\n            <ion-col col-auto (click)=\"forward()\">\n                <ion-icon ios=\"ios-arrow-forward\" md=\"md-arrow-forward\"></ion-icon>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col class=\"center calendar-header-col\" *ngFor=\"let head of weekHead\">{{head}}</ion-col>\n        </ion-row>\n\n        <ion-row class=\"calendar-row\" *ngFor=\"let week of weekArray;let i = index\">\n            <ion-col class=\"center calendar-col\" (click)=\"daySelect(day,i,j)\" \n            *ngFor=\"let day of week;let j = index\" \n            [ngClass]=\"[day.isThisMonth?'this-month':'not-this-month',day.isToday?'today':'',day.isSelect?'select':'']\">\n                {{day.date}}\n            </ion-col>\n        </ion-row>\n\n    </ion-grid>\n"
-    }),
-    __metadata("design:paramtypes", [])
-], Calendar);
 export { Calendar };
 //# sourceMappingURL=calendar.js.map

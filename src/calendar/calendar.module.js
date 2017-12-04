@@ -7,23 +7,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 import { Calendar } from './calendar';
-var CalendarModule = (function () {
+import { monthName } from './pipes/month-name';
+var CalendarModule = /** @class */ (function () {
     function CalendarModule() {
     }
+    CalendarModule = __decorate([
+        NgModule({
+            declarations: [
+                Calendar,
+                monthName
+            ],
+            imports: [
+                IonicModule,
+            ],
+            exports: [
+                Calendar,
+                monthName
+            ]
+        })
+    ], CalendarModule);
     return CalendarModule;
 }());
-CalendarModule = __decorate([
-    NgModule({
-        declarations: [
-            Calendar,
-        ],
-        imports: [
-            IonicModule,
-        ],
-        exports: [
-            Calendar
-        ]
-    })
-], CalendarModule);
 export { CalendarModule };
 //# sourceMappingURL=calendar.module.js.map

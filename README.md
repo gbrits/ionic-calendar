@@ -38,6 +38,11 @@ import { CalendarModule } from 'ionic3-calendar';
   Restart Ionic Serve
 
 ## Update
+- 5th December 2017
+
+  Added English comments to code
+  Added English month names instead of numerals on FE
+  Minor color adjustments for legibility
 
 - 31st July 2017
 
@@ -46,7 +51,7 @@ import { CalendarModule } from 'ionic3-calendar';
 - 29th July 2017:
 
   Fix Bug:
-  The Right Way To Get The Day: 
+  The Right Way To Get The Day:
 
   `<ion-calendar #calendar (onDaySelect)="onDaySelect($event)"></ion-calendar>`
 
