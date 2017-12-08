@@ -1,5 +1,7 @@
 # Ionic Calendar (English)
 
+![image](https://raw.githubusercontent.com/gbrits/ionic-calendar/master/calendar.png?raw=true)
+
 A straight forward calendar module that has the optional capability to expand to *clickable days* and trackable *events*, with unobtrusive boiler-plating.
 
 ## Ionic Support
