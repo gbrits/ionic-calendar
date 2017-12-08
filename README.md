@@ -21,28 +21,56 @@ import { CalendarModule } from 'ionic3-calendar-en';
   })
 ```
 
-- Push component to anywhere you want to display it
+- Basic usage:
 
 ``` javascript
 <ion-calendar #calendar></ion-calendar>
 ```
 
-- Go Today
+- Create a jump button to go to today
 
 ``` javascript
 <button ion-button clear (click)="calendar.today()">Today</button>
 ```
 
-- Click The Day And Get The Day
+- In order to retrieve information about the tapped day, console logs by default.
 
 ``` javascript
 <ion-calendar #calendar (onDaySelect)="onDaySelect($event)"></ion-calendar>
 ```
 
-- In The End
-  Restart Ionic Serve
+- Add in events (an array of objects, year, month, date - integers for each) - for example:
+``` javascript
+  this.currentEvents = [
+    {
+      year: 2017,
+      month: 11,
+      date: 25
+    },
+    {
+      year: 2017,
+      month: 11,
+      date: 26
+    }
+  ];
+```
+- Usage:
+``` javascript
+<ion-calendar #calendar [events]="currentEvents" (onDaySelect)="onDaySelect($event)" (onMonthSelect)="onMonthSelect($event)"></ion-calendar>
+```
+- You will need the `onMonthSelect` emitter to establish what dates to look for in your event listing API, it exposes a simple callback of the year and month per switch back and forth.
+
+``` javascript
+<ion-calendar #calendar (onDaySelect)="onDaySelect($event)"></ion-calendar>
+```
+
+- Restart Ionic Serve or Ionic Lab, first time.
 
 ## Update
+
+- 8th December 2017
+
+  * Added Events capability
 
 - 5th December 2017
 
