@@ -31,6 +31,16 @@ ion-calendar {
       box-shadow: inset 0 0 10px #aaa;
       background: #46b592;
     }
+    .eventBlip {
+      background: #46b592;
+      width: 6.5px;
+      height: 6.5px;
+      display: inline-block;
+      border-radius: 6.5px;
+      position: absolute;
+      top: 3.5px;
+      right: 3.5px;
+    }
     .select {
       box-shadow: none;
       color: #fff;
