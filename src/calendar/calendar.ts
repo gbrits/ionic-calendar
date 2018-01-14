@@ -55,14 +55,16 @@ export class Calendar {
 
     weekHead: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    constructor() {}
+    constructor() {
+      this.today();
+      this.createMonth(this.displayYear, this.displayMonth);
+    }
 
     ngOnChanges() {
       this.createMonth(this.displayYear, this.displayMonth);
     }
 
     ngAfterContentInit() {
-      this.today()
     }
 
     // Jump to today
