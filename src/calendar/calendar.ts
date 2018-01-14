@@ -76,7 +76,7 @@ export class Calendar {
       this.createMonth(this.displayYear, this.displayMonth);
     }
 
-    ngAfterViewInit() {
+    ngAfterContentInit() {
       this.today()
     }
 
