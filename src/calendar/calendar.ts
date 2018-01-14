@@ -38,39 +38,24 @@ import * as _ from "lodash";
 export class Calendar {
 
     @Output() onDaySelect = new EventEmitter<dateObj>();
-
     @Output() onMonthSelect = new EventEmitter<any>();
-
     @Input() events: Array<singularDate> = [];
 
-    currentYear: number;
+    currentYear: number = moment().year();
+    currentMonth: number = moment().month();
+    currentDate: number = moment().date();
+    currentDay: number = moment().day();
 
-    currentMonth: number;
-
-    currentDate: number;
-
-    currentDay: number;
-
-    displayYear: number;
-
-    displayMonth: number;
+    displayYear: number = moment().year();
+    displayMonth: number = moment().month();
 
     dateArray: Array<dateObj> = []; // Array for all the days of the month
-
     weekArray = []; // Array for each row of the calendar
-
     lastSelect: number = 0; // Record the last clicked location
 
     weekHead: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-
-    constructor() {
-        this.currentYear = moment().year();
-        this.currentMonth = moment().month();
-        this.currentDate = moment().date();
-        this.currentDay = moment().day();
-	this.today();
-    }
+    constructor() {}
 
     ngOnChanges() {
       this.createMonth(this.displayYear, this.displayMonth);
