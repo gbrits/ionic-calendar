@@ -69,6 +69,7 @@ export class Calendar {
         this.currentMonth = moment().month();
         this.currentDate = moment().date();
         this.currentDay = moment().day();
+	this.today();
     }
 
     ngOnChanges() {
