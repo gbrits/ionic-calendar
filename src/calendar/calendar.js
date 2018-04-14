@@ -25,13 +25,6 @@ var Calendar = (function () {
         this.weekArray = []; // Array for each row of the calendar
         this.lastSelect = 0; // Record the last clicked location
         this.weekHead = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        console.info(this.lang);
-        if (!this.lang) {
-            this.lang = 'en';
-        }
-        if (this.lang === 'es') {
-            this.weekHead = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
-        }
         this.today();
         this.createMonth(this.displayYear, this.displayMonth);
     }
@@ -39,6 +32,13 @@ var Calendar = (function () {
         this.createMonth(this.displayYear, this.displayMonth);
     };
     Calendar.prototype.ngAfterContentInit = function () {
+        console.info(this.lang);
+        if (!this.lang) {
+            this.lang = 'en';
+        }
+        if (this.lang === 'es') {
+            this.weekHead = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+        }
     };
     // Jump to today
     Calendar.prototype.today = function () {
