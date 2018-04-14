@@ -66,7 +66,6 @@ export class Calendar {
     }
 
     ngAfterContentInit() {
-      console.info(this.lang);
       if (!this.lang) { this.lang = 'en'; }
       if (this.lang === 'es') {
         this.weekHead = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
