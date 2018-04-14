@@ -8,25 +8,25 @@ import { NgModule } from '@angular/core';
 import { IonicModule } from 'ionic-angular';
 import { Calendar } from './calendar';
 import { monthName } from './pipes/month-name';
-var CalendarModule = /** @class */ (function () {
+var CalendarModule = (function () {
     function CalendarModule() {
     }
-    CalendarModule = __decorate([
-        NgModule({
-            declarations: [
-                Calendar,
-                monthName
-            ],
-            imports: [
-                IonicModule,
-            ],
-            exports: [
-                Calendar,
-                monthName
-            ]
-        })
-    ], CalendarModule);
     return CalendarModule;
 }());
+CalendarModule = __decorate([
+    NgModule({
+        declarations: [
+            Calendar,
+            monthName
+        ],
+        imports: [
+            IonicModule,
+        ],
+        exports: [
+            Calendar,
+            monthName
+        ]
+    })
+], CalendarModule);
 export { CalendarModule };
 //# sourceMappingURL=calendar.module.js.map

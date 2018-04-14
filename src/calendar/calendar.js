@@ -10,25 +10,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from "lodash";
-var Calendar = /** @class */ (function () {
+var Calendar = (function () {
     function Calendar() {
         this.onDaySelect = new EventEmitter();
         this.onMonthSelect = new EventEmitter();
         this.events = [];
-        this.dateArray = []; // Array for all the days of the month
-        this.weekArray = []; // Array for each row of the calendar
-        this.lastSelect = 0; // Record the last clicked location
-        this.weekHead = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        this.lang = 'en';
         this.currentYear = moment().year();
         this.currentMonth = moment().month();
         this.currentDate = moment().date();
         this.currentDay = moment().day();
+        this.displayYear = moment().year();
+        this.displayMonth = moment().month();
+        this.dateArray = []; // Array for all the days of the month
+        this.weekArray = []; // Array for each row of the calendar
+        this.lastSelect = 0; // Record the last clicked location
+        this.weekHead = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        if (this.lang === 'es') {
+            this.weekHead = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+        }
+        this.today();
+        this.createMonth(this.displayYear, this.displayMonth);
     }
     Calendar.prototype.ngOnChanges = function () {
         this.createMonth(this.displayYear, this.displayMonth);
     };
-    Calendar.prototype.ngAfterViewInit = function () {
-        this.today();
+    Calendar.prototype.ngAfterContentInit = function () {
     };
     // Jump to today
     Calendar.prototype.today = function () {
@@ -203,26 +210,30 @@ var Calendar = /** @class */ (function () {
         this.dateArray[i * 7 + j].isSelect = true;
         this.onDaySelect.emit(day);
     };
-    __decorate([
-        Output(),
-        __metadata("design:type", Object)
-    ], Calendar.prototype, "onDaySelect", void 0);
-    __decorate([
-        Output(),
-        __metadata("design:type", Object)
-    ], Calendar.prototype, "onMonthSelect", void 0);
-    __decorate([
-        Input(),
-        __metadata("design:type", Array)
-    ], Calendar.prototype, "events", void 0);
-    Calendar = __decorate([
-        Component({
-            selector: 'ion-calendar',
-            template: "\n    <ion-grid>\n        <ion-row justify-content-center>\n            <ion-col col-auto (click)=\"back()\">\n                <ion-icon ios=\"ios-arrow-back\" md=\"md-arrow-back\"></ion-icon>\n            </ion-col>\n            <ion-col col-auto>\n                <div>{{displayYear}} - {{displayMonth + 1 | monthName}}</div>\n            </ion-col>\n            <ion-col col-auto (click)=\"forward()\">\n                <ion-icon ios=\"ios-arrow-forward\" md=\"md-arrow-forward\"></ion-icon>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col class=\"center calendar-header-col\" *ngFor=\"let head of weekHead\">{{head}}</ion-col>\n        </ion-row>\n\n        <ion-row class=\"calendar-row\" *ngFor=\"let week of weekArray;let i = index\">\n            <ion-col class=\"center calendar-col\" (click)=\"daySelect(day,i,j)\"\n            *ngFor=\"let day of week;let j = index\"\n            [ngClass]=\"[day.isThisMonth?'this-month':'not-this-month',day.isToday?'today':'',day.isSelect?'select':'']\">\n                {{day.date}}\n                <span class=\"eventBlip\" *ngIf=\"day.hasEvent\"></span>\n            </ion-col>\n        </ion-row>\n\n    </ion-grid>\n"
-        }),
-        __metadata("design:paramtypes", [])
-    ], Calendar);
     return Calendar;
 }());
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], Calendar.prototype, "onDaySelect", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", Object)
+], Calendar.prototype, "onMonthSelect", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", Array)
+], Calendar.prototype, "events", void 0);
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], Calendar.prototype, "lang", void 0);
+Calendar = __decorate([
+    Component({
+        selector: 'ion-calendar',
+        template: "\n    <ion-grid>\n        <ion-row justify-content-center>\n            <ion-col col-auto (click)=\"back()\">\n                <ion-icon ios=\"ios-arrow-back\" md=\"md-arrow-back\"></ion-icon>\n            </ion-col>\n            <ion-col col-auto>\n                <div>{{displayYear}} - {{displayMonth + 1 | monthName}}</div>\n            </ion-col>\n            <ion-col col-auto (click)=\"forward()\">\n                <ion-icon ios=\"ios-arrow-forward\" md=\"md-arrow-forward\"></ion-icon>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col class=\"center calendar-header-col\" *ngFor=\"let head of weekHead\">{{head}}</ion-col>\n        </ion-row>\n\n        <ion-row class=\"calendar-row\" *ngFor=\"let week of weekArray;let i = index\">\n            <ion-col class=\"center calendar-col\" (click)=\"daySelect(day,i,j)\"\n            *ngFor=\"let day of week;let j = index\"\n            [ngClass]=\"[day.isThisMonth?'this-month':'not-this-month',day.isToday?'today':'',day.isSelect?'select':'']\">\n                {{day.date}}\n                <span class=\"eventBlip\" *ngIf=\"day.hasEvent\"></span>\n            </ion-col>\n        </ion-row>\n\n    </ion-grid>\n"
+    }),
+    __metadata("design:paramtypes", [])
+], Calendar);
 export { Calendar };
 //# sourceMappingURL=calendar.js.map

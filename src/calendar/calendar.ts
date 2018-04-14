@@ -40,6 +40,7 @@ export class Calendar {
     @Output() onDaySelect = new EventEmitter<dateObj>();
     @Output() onMonthSelect = new EventEmitter<any>();
     @Input() events: Array<singularDate> = [];
+    @Input() lang: string = 'en';
 
     currentYear: number = moment().year();
     currentMonth: number = moment().month();
@@ -56,6 +57,9 @@ export class Calendar {
     weekHead: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
     constructor() {
+      if (this.lang === 'es') {
+        this.weekHead = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+      }
       this.today();
       this.createMonth(this.displayYear, this.displayMonth);
     }

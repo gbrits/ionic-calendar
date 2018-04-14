@@ -5,20 +5,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Pipe } from '@angular/core';
-var monthName = /** @class */ (function () {
+var monthName = (function () {
     function monthName() {
+        this.lang = 'es'; // (es or en)
     }
     monthName.prototype.transform = function (value, args) {
-        var monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-            'July', 'August', 'September', 'October', 'November', 'December'];
+        console.info(args);
+        var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        if (this.lang === 'es') {
+            monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        }
         return monthNames[value - 1];
     };
-    monthName = __decorate([
-        Pipe({
-            name: 'monthName'
-        })
-    ], monthName);
     return monthName;
 }());
+monthName = __decorate([
+    Pipe({
+        name: 'monthName'
+    })
+], monthName);
 export { monthName };
 //# sourceMappingURL=month-name.js.map
