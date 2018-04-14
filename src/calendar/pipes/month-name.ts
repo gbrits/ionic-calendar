@@ -4,9 +4,9 @@ import {Pipe} from '@angular/core';
   name: 'monthName'
 })
 export class monthName {
-  private lang: string = 'es'; // (es or en)
+  private lang: string; // (es or en)
   transform(value, args) {
-    console.info(args);
+    if (args === 'es') { this.lang = 'es'; }
     let monthNames = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
     if (this.lang === 'es') {
       monthNames = [ 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre' ];
