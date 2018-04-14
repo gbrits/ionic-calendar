@@ -25,6 +25,7 @@ var Calendar = (function () {
         this.weekArray = []; // Array for each row of the calendar
         this.lastSelect = 0; // Record the last clicked location
         this.weekHead = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        console.info(this.lang);
         if (!this.lang) {
             this.lang = 'en';
         }

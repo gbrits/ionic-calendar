@@ -7,10 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Pipe } from '@angular/core';
 var monthName = (function () {
     function monthName() {
-        this.lang = 'es'; // (es or en)
     }
     monthName.prototype.transform = function (value, args) {
-        console.info(args);
+        if (args === 'es') {
+            this.lang = 'es';
+        }
         var monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         if (this.lang === 'es') {
             monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
