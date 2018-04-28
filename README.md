@@ -53,7 +53,7 @@ You can add a button to jump to today, for ease of navigation:
 
 ### Events
 
-Adding events to the calendar, as seen in the screenshot atop, those tiny notification blips can appear on a given day, if your backend API responds with the right date makeup for the given month. I suggest you write something that provides data for the former and the latter month, for the sake of edge days on a given month.
+Adding events to the calendar, as seen in the screenshot atop, those tiny notification blips can appear on a given day, if your backend API responds with the right date makeup for the given month. I suggest you write something that provides data for the former and the latter month, for the sake of edge days on a given month. The month number starts from 0 for January to 11 for December.
 
 Accepted format of data:
 
