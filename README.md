@@ -36,7 +36,13 @@ imports: [
 Basic usage is as follows:
 
 ```javascript
+
 <ion-calendar #calendar></ion-calendar>
+
+<ion-calendar #calendar lang="es"></ion-calendar> // Spanish support
+
+<ion-calendar #calendar lang="en"></ion-calendar> // Or you can explicitly indicate English
+
 ```
 
 To make days clickable, and emit back information about the day selected, include the onDaySelect binding.
@@ -80,6 +86,9 @@ The consequent invocation of these events would be done like so:
 
 ### Changelog
 
+> 20th June 2018
+>> Language prop added, Spanish supported.
+
 > 8th December 2017
 >> Added Events capability
 
@@ -93,3 +102,4 @@ The consequent invocation of these events would be done like so:
 * **Laker Liu** - *Initial work* - [Ionic3-Calendar](https://github.com/laker007/ionic3-calendar)
 
 **It's not what you start in life, it's what you finish.**
+
