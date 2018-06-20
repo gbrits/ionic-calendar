@@ -11,7 +11,7 @@ import * as _ from "lodash";
                 <ion-icon ios="ios-arrow-back" md="md-arrow-back"></ion-icon>
             </ion-col>
             <ion-col col-auto>
-                <div>{{displayYear}} - {{displayMonth + 1 | monthName}}</div>
+                <div>{{displayYear}} - {{displayMonth + 1 | monthName:lang}}</div>
             </ion-col>
             <ion-col col-auto (click)="forward()">
                 <ion-icon ios="ios-arrow-forward" md="md-arrow-forward"></ion-icon>
@@ -40,6 +40,7 @@ export class Calendar {
     @Output() onDaySelect = new EventEmitter<dateObj>();
     @Output() onMonthSelect = new EventEmitter<any>();
     @Input() events: Array<singularDate> = [];
+    @Input() lang: string;
 
     currentYear: number = moment().year();
     currentMonth: number = moment().month();
@@ -65,6 +66,10 @@ export class Calendar {
     }
 
     ngAfterContentInit() {
+      if (!this.lang) { this.lang = 'en'; }
+      if (this.lang === 'es') {
+        this.weekHead = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+      }
     }
 
     // Jump to today
