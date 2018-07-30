@@ -38,6 +38,8 @@ var Calendar = (function () {
         }
         if (this.lang === 'es') {
             this.weekHead = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
+        } else if (this.lang === 'pt') {
+            this.weekHead = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
         }
     };
     // Jump to today
