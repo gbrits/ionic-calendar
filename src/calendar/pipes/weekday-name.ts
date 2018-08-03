@@ -2,11 +2,11 @@ import {Pipe} from '@angular/core';
 import * as moment from 'moment';
 
 @Pipe({
-  name: 'monthName'
+  name: 'weekdayName'
 })
-export class monthName {
+export class weekdayName {
   transform(value, args) {
     var lang = moment().locale(args);
-    return lang.localeData().months(moment([2012, value - 1]));
+    return lang.localeData().weekdaysShort()[value];
   }
 }

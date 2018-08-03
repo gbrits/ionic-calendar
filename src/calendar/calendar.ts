@@ -19,13 +19,13 @@ import * as _ from "lodash";
         </ion-row>
 
         <ion-row>
-            <ion-col class="center calendar-header-col" *ngFor="let head of weekHead">{{head}}</ion-col>
+            <ion-col class="center calendar-header-col" *ngFor="let head of weekHead">{{head | weekdayName:lang}}</ion-col>
         </ion-row>
 
         <ion-row class="calendar-row" *ngFor="let week of weekArray;let i = index">
             <ion-col class="center calendar-col" (click)="daySelect(day,i,j)"
             *ngFor="let day of week;let j = index"
-            [ngClass]="[day.isThisMonth?'this-month':'not-this-month',day.isToday?'today':'',day.isSelect?'select':'']">
+            [ngClass]="[day.isThisMonth?'this-month':'not-this-month',day.isToday?'today':'',day.isSelect?'select':'',day.hasEvent?'has-event':'']">
                 {{day.date}}
                 <span class="eventBlip" *ngIf="day.hasEvent"></span>
             </ion-col>
@@ -54,7 +54,7 @@ export class Calendar {
     weekArray = []; // Array for each row of the calendar
     lastSelect: number = 0; // Record the last clicked location
 
-    weekHead: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    weekHead: number[] = [0,1,2,3,4,5,6];
 
     constructor() {
       this.today();
@@ -65,12 +65,6 @@ export class Calendar {
       this.createMonth(this.displayYear, this.displayMonth);
     }
 
-    ngAfterContentInit() {
-      if (!this.lang) { this.lang = 'en'; }
-      if (this.lang === 'es') {
-        this.weekHead = ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'];
-      }
-    }
 
     // Jump to today
     today() {
