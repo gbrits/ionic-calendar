@@ -30,6 +30,9 @@ var Calendar = /** @class */ (function () {
     Calendar.prototype.ngOnChanges = function () {
         this.createMonth(this.displayYear, this.displayMonth);
     };
+    Calendar.prototype.ngDoCheck = function () {
+        this.createMonth(this.displayYear, this.displayMonth);
+    };
     // Jump to today
     Calendar.prototype.today = function () {
         this.displayYear = this.currentYear;
@@ -55,6 +58,12 @@ var Calendar = /** @class */ (function () {
         }
         return false;
     };
+    Calendar.prototype.getEventRecord = function (year, month, date) {
+        var result = this.events.find(function (el) {
+            return el.year == year && el.month == month && el.date == date;
+        });
+        return result ? result : {};
+    };
     Calendar.prototype.createMonth = function (year, month) {
         this.dateArray = []; // Clear last month's data
         this.weekArray = []; // Clear week data
@@ -78,10 +87,13 @@ var Calendar = /** @class */ (function () {
         monthDays = moment({ year: year, month: month }).daysInMonth();
         // PREVIOUS MONTH
         // Add the last few days of the previous month to the array
+        //get event record
+        // let record = this.getEventRecord()
         if (firstDay !== 7) { // Sunday doesn't need to be shown for the previous month
             var lastMonthStart = preMonthDays - firstDay + 1; // From the last few months start
             for (var i = 0; i < firstDay; i++) {
                 if (month === 0) {
+                    var record = this.getEventRecord(year, 11, lastMonthStart + i);
                     this.dateArray.push({
                         year: year,
                         month: 11,
@@ -89,10 +101,13 @@ var Calendar = /** @class */ (function () {
                         isThisMonth: false,
                         isToday: false,
                         isSelect: false,
-                        hasEvent: (this.isInEvents(year, 11, lastMonthStart + i)) ? true : false
+                        hasEvent: (this.isInEvents(year, 11, lastMonthStart + i)) ? true : false,
+                        onClick: record.onClick,
+                        eventCSS: record.eventCSS
                     });
                 }
                 else {
+                    var record = this.getEventRecord(year, month - 1, lastMonthStart + i);
                     this.dateArray.push({
                         year: year,
                         month: month - 1,
@@ -100,13 +115,16 @@ var Calendar = /** @class */ (function () {
                         isThisMonth: false,
                         isToday: false,
                         isSelect: false,
-                        hasEvent: (this.isInEvents(year, month - 1, lastMonthStart + i)) ? true : false
+                        hasEvent: (this.isInEvents(year, month - 1, lastMonthStart + i)) ? true : false,
+                        onClick: record.onClick,
+                        eventCSS: record.eventCSS
                     });
                 }
             }
         }
         // Add the numeral for this month to the array
         for (var i = 0; i < monthDays; i++) {
+            var record = this.getEventRecord(year, month, i + 1);
             this.dateArray.push({
                 year: year,
                 month: month,
@@ -114,7 +132,9 @@ var Calendar = /** @class */ (function () {
                 isThisMonth: true,
                 isToday: false,
                 isSelect: false,
-                hasEvent: (this.isInEvents(year, month, i + 1)) ? true : false
+                hasEvent: (this.isInEvents(year, month, i + 1)) ? true : false,
+                onClick: record.onClick,
+                eventCSS: record.eventCSS
             });
         }
         if (this.currentYear === year && this.currentMonth === month) {
@@ -130,6 +150,7 @@ var Calendar = /** @class */ (function () {
         if (this.dateArray.length % 7 !== 0) {
             var nextMonthAdd = 7 - this.dateArray.length % 7;
             for (var i = 0; i < nextMonthAdd; i++) {
+                var record = this.getEventRecord(year, 0, i + 1);
                 if (month === 11) {
                     this.dateArray.push({
                         year: year,
@@ -138,10 +159,13 @@ var Calendar = /** @class */ (function () {
                         isThisMonth: false,
                         isToday: false,
                         isSelect: false,
-                        hasEvent: (this.isInEvents(year, 0, i + 1)) ? true : false
+                        hasEvent: (this.isInEvents(year, 0, i + 1)) ? true : false,
+                        onClick: record.onClick,
+                        eventCSS: record.eventCSS
                     });
                 }
                 else {
+                    var record_1 = this.getEventRecord(year, month + 1, i + 1);
                     this.dateArray.push({
                         year: year,
                         month: month + 1,
@@ -149,7 +173,9 @@ var Calendar = /** @class */ (function () {
                         isThisMonth: false,
                         isToday: false,
                         isSelect: false,
-                        hasEvent: (this.isInEvents(year, month + 1, i + 1)) ? true : false
+                        hasEvent: (this.isInEvents(year, month + 1, i + 1)) ? true : false,
+                        onClick: record_1.onClick,
+                        eventCSS: record_1.eventCSS
                     });
                 }
             }
@@ -218,7 +244,7 @@ var Calendar = /** @class */ (function () {
     Calendar = __decorate([
         core_1.Component({
             selector: 'ion-calendar',
-            template: "\n    <ion-grid>\n        <ion-row justify-content-center>\n            <ion-col col-auto (click)=\"back()\">\n                <ion-icon ios=\"ios-arrow-back\" md=\"md-arrow-back\"></ion-icon>\n            </ion-col>\n            <ion-col col-auto>\n                <div>{{displayYear}} - {{displayMonth + 1 | monthName:lang}}</div>\n            </ion-col>\n            <ion-col col-auto (click)=\"forward()\">\n                <ion-icon ios=\"ios-arrow-forward\" md=\"md-arrow-forward\"></ion-icon>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col class=\"center calendar-header-col\" *ngFor=\"let head of weekHead\">{{head | weekdayName:lang}}</ion-col>\n        </ion-row>\n\n        <ion-row class=\"calendar-row\" *ngFor=\"let week of weekArray;let i = index\">\n            <ion-col class=\"center calendar-col\" (click)=\"daySelect(day,i,j)\"\n            *ngFor=\"let day of week;let j = index\"\n            [ngClass]=\"[day.isThisMonth?'this-month':'not-this-month',day.isToday?'today':'',day.isSelect?'select':'',day.hasEvent?'has-event':'']\">\n                {{day.date}}\n                <span class=\"eventBlip\" *ngIf=\"day.hasEvent\"></span>\n            </ion-col>\n        </ion-row>\n\n    </ion-grid>\n"
+            template: "\n    <ion-grid>\n        <ion-row justify-content-center>\n            <ion-col col-auto (click)=\"back()\">\n                <ion-icon ios=\"ios-arrow-back\" md=\"md-arrow-back\"></ion-icon>\n            </ion-col>\n            <ion-col col-auto>\n                <div>{{displayYear}} - {{displayMonth + 1 | monthName:lang}}</div>\n            </ion-col>\n            <ion-col col-auto (click)=\"forward()\">\n                <ion-icon ios=\"ios-arrow-forward\" md=\"md-arrow-forward\"></ion-icon>\n            </ion-col>\n        </ion-row>\n\n        <ion-row>\n            <ion-col class=\"center calendar-header-col\" *ngFor=\"let head of weekHead\">{{head | weekdayName:lang}}</ion-col>\n        </ion-row>\n\n        <ion-row class=\"calendar-row\" *ngFor=\"let week of weekArray;let i = index\">\n            <ion-col class=\"center calendar-col\" (click)=\"day.onClick?day.onClick():daySelect(day,i,j)\"\n            *ngFor=\"let day of week;let j = index\"\n            [ngClass]=\"[day.isThisMonth?'this-month':'not-this-month',day.isToday?'today':'',day.isSelect?'select':'',day.hasEvent&&day.eventCSS?day.eventCSS:'']\">\n                {{day.date}}\n            </ion-col>\n        </ion-row>\n\n    </ion-grid>\n"
         })
     ], Calendar);
     return Calendar;
