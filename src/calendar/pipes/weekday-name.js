@@ -8,18 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 exports.__esModule = true;
 var core_1 = require("@angular/core");
 var moment = require("moment");
-var monthName = /** @class */ (function () {
-    function monthName() {
+var weekdayName = /** @class */ (function () {
+    function weekdayName() {
     }
-    monthName.prototype.transform = function (value, args) {
+    weekdayName.prototype.transform = function (value, args) {
         var lang = moment().locale(args);
-        return lang.localeData().months(moment([2012, value - 1]));
+        return lang.localeData().weekdaysShort()[value];
     };
-    monthName = __decorate([
+    weekdayName = __decorate([
         core_1.Pipe({
-            name: 'monthName'
+            name: 'weekdayName'
         })
-    ], monthName);
-    return monthName;
+    ], weekdayName);
+    return weekdayName;
 }());
-exports.monthName = monthName;
+exports.weekdayName = weekdayName;
+//# sourceMappingURL=weekday-name.js.map

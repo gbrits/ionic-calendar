@@ -16,7 +16,9 @@
     "url": "https://github.com/gbrits/ionic-calendar/issues"
   },
   "homepage": "https://github.com/gbrits/ionic-calendar#readme",
-  "dependencies": {},
+  "dependencies": {
+    "moment": "^2.22.2"
+  },
   "devDependencies": {
     "typescript": "2.3.4"
   }
