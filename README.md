@@ -6,7 +6,7 @@ A straight forward calendar module that has the optional capability to expand to
 
 ## Ionic Support
 
-This module was tested to Ionic v3.19.0.
+This module was tested to Ionic v3.19.0. There is currently no support for Ionic 4 - please feel free to participate and your fixes will be merged.
 
 ### Installing
 
